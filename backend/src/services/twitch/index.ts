@@ -1,7 +1,7 @@
 // Services for handling twitch settings
-import { getTwitchSettings, Options } from '../helpers';
-import { TwitchSettings as TwitchSettingsSchema } from '../../database/schema';
-import { TwitchSettingsInt } from '../../utils/helpers';
+import { getTwitchSettings, Options } from "../helpers";
+import { TwitchSettings as TwitchSettingsSchema } from "../../database/schema";
+import { TwitchSettingsInt } from "../../utils/helpers";
 export class TwitchSettingsService {
   static async get() {
     const twitchSettings = await TwitchSettingsSchema.findOne({});
@@ -22,7 +22,7 @@ export class TwitchSettingsService {
     const { body: twitchSettings } = options;
 
     if (!twitchSettings) {
-      throw new Error('No Twitch Settings Provided');
+      throw new Error("No Twitch Settings Provided");
     }
 
     const newTwitchSettings = await TwitchSettingsSchema.create(twitchSettings);
@@ -32,7 +32,7 @@ export class TwitchSettingsService {
         success: false,
         data: null,
         error: null,
-        msg: 'Error Creating Twitch Settings',
+        msg: "Error Creating Twitch Settings",
       };
     }
 
@@ -43,7 +43,7 @@ export class TwitchSettingsService {
     const { body: twitchSettings } = options;
 
     if (!twitchSettings) {
-      throw new Error('No Twitch Settings Provided');
+      throw new Error("No Twitch Settings Provided");
     }
     const updatedTwitchSettings = await TwitchSettingsSchema.findOneAndUpdate(
       {},
@@ -56,7 +56,7 @@ export class TwitchSettingsService {
         success: false,
         data: null,
         error: null,
-        msg: 'Error Updating Twitch Settings',
+        msg: "Error Updating Twitch Settings",
       };
     }
 
@@ -69,8 +69,8 @@ export class TwitchSettingsService {
   }
 
   static async runAd(options: Options) {
-    const adURL = 'https://api.twitch.tv/helix/channels/commercial';
-    const adDuration = 30;
+    const adURL = "https://api.twitch.tv/helix/channels/commercial";
+    const adDuration = 180;
     // Get Twitch Settings
     const { twitchClientID, twitchAccessToken, twitchBroadcasterID } =
       await getTwitchSettings();
@@ -81,10 +81,10 @@ export class TwitchSettingsService {
     };
 
     const response = await fetch(adURL, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Client-ID': twitchClientID!,
+        "Content-Type": "application/json",
+        "Client-ID": twitchClientID!,
         Authorization: `Bearer ${twitchAccessToken}`,
       },
       body: JSON.stringify(adSettings),
@@ -95,7 +95,7 @@ export class TwitchSettingsService {
         success: false,
         data: null,
         error: response.statusText,
-        msg: 'Error Running Ad',
+        msg: "Error Running Ad",
       };
     }
 
@@ -110,10 +110,10 @@ export class TwitchSettingsService {
     const { twitchClientID, twitchAccessToken } = await getTwitchSettings();
 
     const response = await fetch(searchURL, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'Client-ID': twitchClientID!,
+        "Content-Type": "application/json",
+        "Client-ID": twitchClientID!,
         Authorization: `Bearer ${twitchAccessToken}`,
       },
     });
@@ -123,7 +123,7 @@ export class TwitchSettingsService {
         success: false,
         data: null,
         error: response.statusText,
-        msg: 'Error Searching Categories',
+        msg: "Error Searching Categories",
       };
     }
 
@@ -162,10 +162,10 @@ export class TwitchSettingsService {
     }
 
     const response = await fetch(URL, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json',
-        'Client-ID': twitchClientID!,
+        "Content-Type": "application/json",
+        "Client-ID": twitchClientID!,
         Authorization: `Bearer ${twitchAccessToken}`,
       },
       body: JSON.stringify(channelSettings),
@@ -176,7 +176,7 @@ export class TwitchSettingsService {
         success: false,
         data: null,
         error: response.statusText,
-        msg: 'Error Updating Channel',
+        msg: "Error Updating Channel",
       };
     }
 
@@ -193,7 +193,7 @@ export class TwitchSettingsService {
     )}`;
 
     const response = await fetch(URL, {
-      method: 'POST',
+      method: "POST",
     });
 
     if (!response.ok) {
@@ -201,7 +201,7 @@ export class TwitchSettingsService {
         success: false,
         data: null,
         error: response.statusText,
-        msg: 'Error Getting Access Token',
+        msg: "Error Getting Access Token",
       };
     }
 
@@ -225,10 +225,10 @@ export class TwitchSettingsService {
     const URL = `https://api.twitch.tv/helix/channels?broadcaster_id=${twitchBroadcasterID}`;
 
     const response = await fetch(URL, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'Client-ID': twitchClientID!,
+        "Content-Type": "application/json",
+        "Client-ID": twitchClientID!,
         Authorization: `Bearer ${twitchAccessToken}`,
       },
     });
@@ -238,7 +238,7 @@ export class TwitchSettingsService {
         success: false,
         data: null,
         error: response.statusText,
-        msg: 'Error Getting Channel Data',
+        msg: "Error Getting Channel Data",
       };
     }
 
